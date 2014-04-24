@@ -8,7 +8,7 @@ import math
 #import thread
 import optparse
 
-#overrinfing thread so i can use it the way i want
+#overriding thread so i can use it the way i want
 class myThread (threading.Thread):
     def __init__(self, threadID, name, lines,salt,cryptPass):
         threading.Thread.__init__(self)
@@ -25,7 +25,7 @@ class myThread (threading.Thread):
 __passwordFound__=False
 __password__=""
 
-#the shadow file is of format name:$hashtype$salt
+#the shadow file is of format name:$hashtype$salt$hash
 def testPass(zfile,cryptPass):
     test=cryptPass.split("$")
     salt="$"+test[1]+"$"+test[2]#detecting salt
@@ -73,7 +73,8 @@ def main():
             print "[*] cracking password for "+user
             testPass(dname,cryptPass)
  
-
+#crypt is awesome it takes as paramaters salt in the format : $hashtype$salt
+#hashtype is represented with numbers the same as in the shadow file
 def cracker(lines,salt,cryptPass,thread_name):
     for word in lines:
 	    global __passwordFound__
